@@ -1,8 +1,6 @@
-'use strict';
-
-const
-  assert = require('assert'),
-  byline = require('byline');
+"use strict";
+const assert = require("assert");
+const byline = require("byline");
 
 function split(inputStream, opts, createOutputStreamCallback) {
   let outputStream = null;
@@ -10,13 +8,13 @@ function split(inputStream, opts, createOutputStreamCallback) {
   let lineIndex = 0;
   let header;
   const options = {
-    delimiter: opts.delimiter || '\n',
+    delimiter: opts.delimiter || "\n",
     lineLimit: opts.lineLimit
   };
 
   return new Promise((resolve, reject) => {
-    assert(inputStream, 'Provide inputStream');
-    assert(options.lineLimit > 0, 'Provide non-negative lineLimit');
+    assert(inputStream, "Provide inputStream");
+    assert(options.lineLimit > 0, "Provide non-negative lineLimit");
     let lineStream;
 
     function handleError(err) {
@@ -26,16 +24,16 @@ function split(inputStream, opts, createOutputStreamCallback) {
       reject(err);
     }
 
-    inputStream.on('error', handleError);
+    inputStream.on("error", handleError);
 
     try {
       lineStream = byline(inputStream);
-    } catch(err) {
+    } catch (err) {
       handleError(err);
       return;
     }
 
-    lineStream.on('data', line => {
+    lineStream.on("data", (line) => {
       if (!header) {
         header = line;
       } else {
@@ -50,14 +48,14 @@ function split(inputStream, opts, createOutputStreamCallback) {
 
         outputStream.write(line);
         outputStream.write(options.delimiter);
-        lineIndex = (++lineIndex) % options.lineLimit;
+        lineIndex = ++lineIndex % options.lineLimit;
       }
     });
 
-    lineStream.on('error', handleError);
-    lineStream.on('end', () => {
+    lineStream.on("error", handleError);
+    lineStream.on("end", () => {
       if (!header) {
-        reject(new Error('The provided CSV is empty'));
+        reject(new Error("The provided CSV is empty"));
         return;
       }
 
