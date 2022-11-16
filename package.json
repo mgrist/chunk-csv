@@ -1,7 +1,7 @@
 {
-  "name": "csv-split-stream",
-  "version": "1.0.2",
-  "description": "Splits a CSV read stream into multiple write streams",
+  "name": "chunk-csv",
+  "version": "0.0.0",
+  "description": "Splits a CSV read stream into smaller chunks.",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -15,30 +15,31 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlexanderMS/csv-split-stream.git"
+    "url": "git+https://github.com/mgrist/chunk-csv"
   },
   "keywords": [
+    "chunk",
     "csv",
     "split",
     "stream"
   ],
-  "author": "Alex Murashkin",
+  "author": "Matthew Grist",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AlexanderMS/csv-split-stream/issues"
+    "url": "https://github.com/mgrist/chunk-csv/issues"
   },
-  "homepage": "https://github.com/AlexanderMS/csv-split-stream#readme",
+  "homepage": "https://github.com/mgrist/chunk-csv#readme",
   "dependencies": {
     "byline": "5.0.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "chai-as-promised": "^6.0.0",
-    "coveralls": "^2.13.0",
-    "debug": "^2.6.3",
-    "eslint": "^3.12.0",
-    "mocha": "^3.2.0",
-    "nyc": "^10.2.0",
-    "sinon": "^1.17.6"
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
+    "coveralls": "^3.1.1",
+    "debug": "^4.3.4",
+    "eslint": "^8.27.0",
+    "mocha": "^10.1.0",
+    "nyc": "^15.1.0",
+    "sinon": "^14.0.2"
   }
 }
