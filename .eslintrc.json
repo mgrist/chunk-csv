@@ -1,0 +1,17 @@
+{
+  "root": true,
+  "env": {
+    "es6": true,
+    "commonjs": true,
+    "node": true,
+    "mocha": true
+  },
+  "extends": ["eslint:recommended"],
+  "parserOptions": {
+		"ecmaVersion": "latest"
+	},
+	"rules": {
+		"no-console": "warn"
+	},
+	"reportUnusedDisableDirectives": true
+}
