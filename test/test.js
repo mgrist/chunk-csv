@@ -2,7 +2,7 @@
 
 const
   fs = require('fs'),
-  debug = require('debug')('csv-split-stream-test'),
+  debug = require('debug')('chunk-csv-test'),
   stream = require('stream'),
   chai = require('chai'),
   path = require('path'),
@@ -11,7 +11,7 @@ const
 
 chai.use(require('chai-as-promised'));
 
-describe('csv-split-stream', function() {
+describe('chunk-csv', function() {
   let actualOutputs, expectedOutputs;
 
   function assertSuccess(promise) {
@@ -49,7 +49,7 @@ describe('csv-split-stream', function() {
       require(path.resolve(__dirname, `cases/${caseName}/params.json`)),
       (index) => {
         const outputStream = new stream.PassThrough();
-        actualOutputs[index] = new Buffer('');
+        actualOutputs[index] = new Buffer.from('');
         outputStream.on('data', data => {
           actualOutputs[index] += data;
         });
@@ -102,7 +102,7 @@ describe('csv-split-stream', function() {
 
   it('rejects when lineLimit is 0', function() {
     return assertError(csvSplitStream.split(
-      fs.createReadStream('non-existing-file'),
+      new stream.Readable(),
       () => {
         throw new Error('should never be called');
       }), /Provide non-negative lineLimit/);
@@ -110,7 +110,7 @@ describe('csv-split-stream', function() {
 
   it('rejects when lineLimit is negative', function() {
     return assertError(csvSplitStream.split(
-      fs.createReadStream('non-existing-file'),
+      new stream.Readable(),
       {
         lineLimit: -10
       }), /Provide non-negative lineLimit/);
@@ -118,7 +118,7 @@ describe('csv-split-stream', function() {
 
   it('rejects when lineLimit is not provided', function() {
     return assertError(csvSplitStream.split(
-      fs.createReadStream('non-existing-file'),
+      new stream.Readable(),
       {
         otherSettings: 10
       }), /Provide non-negative lineLimit/);

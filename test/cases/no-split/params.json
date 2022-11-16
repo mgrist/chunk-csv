@@ -1,3 +1,4 @@
 {
-  "lineLimit": 10000
+  "lineLimit": 10000,
+  "delimiter": "\r\n"
 }
