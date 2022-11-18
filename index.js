@@ -22,6 +22,7 @@ function split(inputStream, opts, createOutputStreamCallback) {
         outputStream.end();
       }
       reject(err);
+      return;
     }
 
     inputStream.on("error", handleError);
@@ -33,26 +34,30 @@ function split(inputStream, opts, createOutputStreamCallback) {
       return;
     }
 
-    lineStream.on("data", (line) => {
-      if (!header) {
-        header = line;
-      } else {
-        if (lineIndex === 0) {
-          if (outputStream) {
-            outputStream.end();
+    lineStream.on("readable", async () => {
+      var line;
+      while (null !== (line = lineStream.read())) {
+        if (!header) {
+          header = line;
+        } else {
+          if (lineIndex === 0) {
+            if (outputStream) {
+              outputStream.end();
+            }
+            outputStream = await createOutputStreamCallback(chunkIndex++);
+            outputStream.write(header);
+            outputStream.write(options.delimiter);
           }
-          outputStream = createOutputStreamCallback(chunkIndex++);
-          outputStream.write(header);
-          outputStream.write(options.delimiter);
-        }
 
-        outputStream.write(line);
-        outputStream.write(options.delimiter);
-        lineIndex = ++lineIndex % options.lineLimit;
+          outputStream.write(line);
+          outputStream.write(options.delimiter);
+          lineIndex = ++lineIndex % options.lineLimit;
+        }
       }
     });
 
-    lineStream.on("error", handleError);
+    lineStream.on("error", (err) => handleError(err));
+
     lineStream.on("end", () => {
       if (!header) {
         reject(new Error("The provided CSV is empty"));
