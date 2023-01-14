@@ -70,12 +70,12 @@ function splitStream(inputStream, opts, createOutputStreamCallback) {
       }
 
       if (outputStream) {
-        outputStream.end();
+        await outputStream.end();
       } else {
         outputStream = await createOutputStreamCallback(chunkIndex++);
         outputStream.write(header);
         outputStream.write(options.delimiter);
-        outputStream.end();
+        await outputStream.end();
       }
 
       resolve({
@@ -93,14 +93,15 @@ function splitStream(inputStream, opts, createOutputStreamCallback) {
  * @param {function} createOutputStringCallback callback function to be executed on each chunk.
  * @returns {Promise<object>} returns object with total chunks and specified options
  */
-function splitString(inputStream, opts, createOutputStringCallback) {
+function split(inputStream, opts, createOutputStringCallback) {
   let outputString = "";
   let chunkIndex = 0;
   let lineIndex = 0;
   let header;
   const options = {
     delimiter: opts.delimiter || "\n",
-    lineLimit: opts.lineLimit
+    lineLimit: opts.lineLimit,
+    header: opts.header || true
   };
 
   return new Promise((resolve, reject) => {
@@ -172,5 +173,5 @@ function splitString(inputStream, opts, createOutputStringCallback) {
 
 module.exports = {
   splitStream,
-  splitString
+  split
 };
