@@ -7,7 +7,7 @@ Splits a CSV read stream into multiple write streams or strings.
 
 ## Install
 
-`npm installchunk-csv`
+`npm install chunk-csv`
 
 ## Usage
 
@@ -35,7 +35,6 @@ Splits a CSV read stream into multiple write streams or strings.
   }).catch(csvSplitError => {
     console.log('csvSplitStream failed!', csvSplitError);
   });
-
   ```
 
 2. Download a large CSV file via HTTP, split it into chunks of 10000 lines and upload each of them to s3:
