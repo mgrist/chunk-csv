@@ -133,7 +133,7 @@ function split(inputStream, opts, createOutputStringCallback) {
       } else {
         if (relLineIndex === 0) {
           if (outputString) {
-            await createOutputStringCallback(outputString, chunkIndex++);
+            createOutputStringCallback(outputString, chunkIndex++);
             outputString = "";
           }
           outputString += header;
