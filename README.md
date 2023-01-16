@@ -15,9 +15,9 @@ This library was forked from [csv-split-stream](https://github.com/alex-murashki
 1. Split a local CSV file into multiple CSV files (10000 lines each, excluding the header row):
 
   ```javascript
-  const csvSplitStream = require('csv-split-stream');
+  const chunkCsv = require('chunk-csv');
 
-  return csvSplitStream.splitStream(
+  return chunkCsv.splitStream(
     fs.createReadStream('input.csv'),
     {
       lineLimit: 100
@@ -42,13 +42,13 @@ This library was forked from [csv-split-stream](https://github.com/alex-murashki
 
   ```javascript
   const http           = require('http'),
-  const csvSplitStream = require('csv-split-stream');
+  const chunkCsv = require('csv-split-stream');
   const AWS            = require('aws-sdk'),
   const s3Stream       = require('s3-upload-stream')(new AWS.S3());
 
   function downloadAndSplit(callback) {
     http.get({...}, downloadStream => {
-      csvSplitStream.splitStream(
+      chunkCsv.splitStream(
         downloadStream,
         {
           lineLimit: 10000
