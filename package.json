@@ -11,7 +11,8 @@
     "coveralls-coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint .",
     "test": "nyc --all mocha --recursive ./test",
-    "posttest": "eslint ."
+    "posttest": "eslint .",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "byline": "5.0.0"
   },
   "devDependencies": {
+    "@types/node": "^18.11.18",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
     "coveralls": "^3.1.1",
@@ -40,6 +42,7 @@
     "eslint": "^8.27.0",
     "mocha": "^10.1.0",
     "nyc": "^15.1.0",
-    "sinon": "^14.0.2"
+    "sinon": "^14.0.2",
+    "typescript": "^4.9.4"
   }
 }

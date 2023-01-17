@@ -3,7 +3,7 @@ const assert = require("assert");
 const byline = require("byline");
 
 /**
- *
+ * Split csv readable stream into multiple write streams
  * @param {Readable} inputStream readable csv stream
  * @param {any} opts delimeter and lineLimit options as an object
  * @param {function} createOutputStreamCallback callback function to be executed on each chunk.
@@ -87,7 +87,7 @@ function splitStream(inputStream, opts, createOutputStreamCallback) {
 }
 
 /**
- *
+ * Split csv readable stream into multiple strings
  * @param {Readable} inputStream readable csv stream
  * @param {any} opts delimeter and lineLimit options as an object
  * @param {function} createOutputStringCallback callback function to be executed on each chunk.
