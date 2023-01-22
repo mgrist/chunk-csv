@@ -1,7 +1,5 @@
 # chunk-csv
-
-[![npm version](https://badge.fury.io/js/csv-split-stream.svg)](https://badge.fury.io/js/csv-split-stream)
-[![Coverage Status](https://coveralls.io/repos/github/AlexanderMS/csv-split-stream/badge.svg?branch=master)](https://coveralls.io/github/AlexanderMS/csv-split-stream?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/mgrist/chunk-csv/badge.svg?branch=master)](https://coveralls.io/github/mgrist/chunk-csv?branch=master)
 
 Splits a CSV read stream into multiple write streams or strings. <br><br>
 This library was forked from [csv-split-stream](https://github.com/alex-murashkin/csv-split-stream), an extra method was added and the previous code was updated to support async functions within the callback functions. Feel free to submit a PR or issue containing any bug fixes or feature requests.
