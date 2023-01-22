@@ -1,6 +1,6 @@
 {
   "name": "chunk-csv",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Splits a CSV read stream into smaller chunks.",
   "main": "index.js",
   "directories": {
@@ -11,7 +11,7 @@
     "coveralls-coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint .",
     "test": "nyc --all mocha --recursive ./test",
-    "posttest": "eslint .",
+    "publish": "np",
     "build": "tsc"
   },
   "repository": {
