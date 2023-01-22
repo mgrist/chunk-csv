@@ -18,12 +18,12 @@ This library was forked from [csv-split-stream](https://github.com/alex-murashki
   return chunkCsv.splitStream(
     fs.createReadStream('input.csv'),
     {
-      lineLimit: 100
+      lineLimit: 10000
     },
     (index) => fs.createWriteStream(`output-${index}.csv`)
   )
   .then(csvSplitResponse => {
-    console.log('csvSplitStream succeeded.', csvSplitResponse);
+    console.log('csv split succeeded!', csvSplitResponse);
     // outputs: {
     //  "totalChunks": 350,
     //  "options": {
@@ -32,7 +32,7 @@ This library was forked from [csv-split-stream](https://github.com/alex-murashki
     //  }
     // }
   }).catch(csvSplitError => {
-    console.log('csvSplitStream failed!', csvSplitError);
+    console.log('csv split failed!, csvSplitError);
   });
   ```
 
@@ -57,16 +57,45 @@ This library was forked from [csv-split-stream](https://github.com/alex-murashki
         })
       )
       .then(csvSplitResponse => {
-        console.log('csvSplitStream succeeded.', csvSplitResponse);
+        console.log('csv split succeeded!', csvSplitResponse);
         callback(...);
       }).catch(csvSplitError => {
-        console.log('csvSplitStream failed!', csvSplitError);
+        console.log('csv split failed!', csvSplitError);
         callback(...);
       });
     });    
   }
   ```
-  
+  ### Using strings
+  1. Split a local CSV file into multiple strings (10000 lines each, excluding the header row):
+
+  ```javascript
+  const chunkCsv = require('chunk-csv');
+
+  chunkCsv.split(
+    fs.createReadStream('input.csv'),
+    {
+      lineLimit: 10000
+    },
+    async (chunk, index) => {
+        const data = await neatCsv(chunk);
+        console.log("Processed Chunk", index);
+        console.log(data);
+    }
+  )
+  .then(csvSplitResponse => {
+    console.log('csv split succeeded!', csvSplitResponse);
+    // outputs: {
+    //  "totalChunks": 350,
+    //  "options": {
+    //    "delimiter": "\n",
+    //    "lineLimit": "10000"
+    //  }
+    // }
+  }).catch(csvSplitError => {
+    console.log('csv split failed!', csvSplitError);
+  });
+  ```
   ## Methods
  `splitStream(readable, options, callback(index))`<br>
  The `splitStream` method splits a CSV readable stream into multiple write streams and takes 3 arguments.
