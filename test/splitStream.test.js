@@ -10,7 +10,7 @@ const fs = require("fs"),
 
 chai.use(require("chai-as-promised"));
 
-describe("chunk-csv with multiple strings", function () {
+describe("chunk-csv with multiple streams", function () {
   let actualOutputs, expectedOutputs;
 
   function assertSuccess(promise) {
