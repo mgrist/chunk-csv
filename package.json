@@ -6,6 +6,7 @@
   "directories": {
     "test": "test"
   },
+  "types": "./dist/index.d.ts",
   "scripts": {
     "coverage": "nyc report --reporter=lcov",
     "coveralls-coverage": "nyc report --reporter=text-lcov | coveralls",
