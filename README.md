@@ -1,7 +1,7 @@
 # chunk-csv
 [![Coverage Status](https://coveralls.io/repos/github/mgrist/chunk-csv/badge.svg?branch=master)](https://coveralls.io/github/mgrist/chunk-csv?branch=master)
 
-Splits a CSV read stream into multiple write streams or strings. <br><br>
+Splits a CSV read stream into multiple strings or write streams. <br><br>
 This library was forked from [csv-split-stream](https://github.com/alex-murashkin/csv-split-stream), an extra method was added and the previous code was updated to support async functions within the callback functions. The original library hasn't been updated since 2017, so I decided to revive it. Feel free to submit a PR or issue containing any bug fixes or feature requests.
 
 ## Install
@@ -9,6 +9,37 @@ This library was forked from [csv-split-stream](https://github.com/alex-murashki
 `npm install chunk-csv`
 
 ## Usage
+ ### Using strings
+  1. Split a local CSV file into multiple strings (10000 lines each, excluding the header row):
+
+  ```javascript
+  const chunkCsv = require('chunk-csv');
+
+  chunkCsv.split(
+    fs.createReadStream('input.csv'),
+    {
+      lineLimit: 10000
+    },
+    async (chunk, index) => {
+        const data = await neatCsv(chunk);
+        console.log("Processed Chunk", index);
+        console.log(data);
+    }
+  )
+  .then(csvSplitResponse => {
+    console.log('csv split succeeded!', csvSplitResponse);
+    // outputs: {
+    //  "totalChunks": 350,
+    //  "options": {
+    //    "delimiter": "\n",
+    //    "lineLimit": "10000"
+    //  }
+    // }
+  }).catch(csvSplitError => {
+    console.log('csv split failed!', csvSplitError);
+  });
+  ```
+  
 ### Using write streams
 1. Split a local CSV file into multiple CSV files (10000 lines each, excluding the header row):
 
@@ -65,36 +96,6 @@ This library was forked from [csv-split-stream](https://github.com/alex-murashki
       });
     });    
   }
-  ```
-  ### Using strings
-  1. Split a local CSV file into multiple strings (10000 lines each, excluding the header row):
-
-  ```javascript
-  const chunkCsv = require('chunk-csv');
-
-  chunkCsv.split(
-    fs.createReadStream('input.csv'),
-    {
-      lineLimit: 10000
-    },
-    async (chunk, index) => {
-        const data = await neatCsv(chunk);
-        console.log("Processed Chunk", index);
-        console.log(data);
-    }
-  )
-  .then(csvSplitResponse => {
-    console.log('csv split succeeded!', csvSplitResponse);
-    // outputs: {
-    //  "totalChunks": 350,
-    //  "options": {
-    //    "delimiter": "\n",
-    //    "lineLimit": "10000"
-    //  }
-    // }
-  }).catch(csvSplitError => {
-    console.log('csv split failed!', csvSplitError);
-  });
   ```
   ## Methods
  `splitStream(readable, options, callback(index))`<br>
