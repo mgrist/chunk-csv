@@ -1,7 +1,7 @@
 # chunk-csv
 [![Coverage Status](https://coveralls.io/repos/github/mgrist/chunk-csv/badge.svg?branch=master)](https://coveralls.io/github/mgrist/chunk-csv?branch=master)
 
-Splits a CSV read stream into multiple strings or write streams. <br><br>
+[NPM package](https://www.npmjs.com/package/chunk-csv) that splits a CSV read stream into multiple strings or write streams. <br><br>
 This library was forked from [csv-split-stream](https://github.com/alex-murashkin/csv-split-stream), an extra method was added and the previous code was updated to support async functions within the callback functions. The original library hasn't been updated since 2017, so I decided to revive it. Feel free to submit a PR or issue containing any bug fixes or feature requests.
 
 ## Install
